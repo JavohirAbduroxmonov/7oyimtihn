@@ -47,6 +47,15 @@ const Products = ({ cart, setCart, setAdd }) => {
   }, []);
 
   useEffect(() => {
+    // Custom logging function
+    function log(level, ...args) {
+      Function.prototype.apply.call(console[level], console, args);
+    }
+
+    log("log", "Selected Brand:", selectedBrand);
+    log("log", "Selected Color:", selectedColor);
+    log("log", "Sort Order:", sort);
+
     async function fetchProducts() {
       setLoading(true);
 
@@ -89,7 +98,8 @@ const Products = ({ cart, setCart, setAdd }) => {
         </div>
         <div className={styles.filter}>
           <nav className={styles.nav}>
-            <select className={styles.select}
+            <select
+              className={styles.select}
               name="sort"
               value={sort}
               onChange={(e) => setSort(e.target.value)}
@@ -145,7 +155,8 @@ const Products = ({ cart, setCart, setAdd }) => {
           ) : products.length ? (
             <div className={styles.grid}>
               {products.map((product) => (
-                <Card className={styles.card}
+                <Card
+                  className={styles.card}
                   key={product.id}
                   product={product}
                   cart={cart}
